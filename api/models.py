@@ -11,6 +11,11 @@ class Book(models.Model):
     image = models.CharField(max_length=5500)
     price = models.FloatField()
 
+class Manager(models.Model):
+    name = models.CharField(max_length=222)
+    username = models.CharField(max_length=222)
+    password = models.CharField(max_length=222)
+    email = models.CharField(max_length=222)
 
 class Order(models.Model):
     name = models.CharField(max_length=100)

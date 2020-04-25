@@ -5,6 +5,10 @@ class GenreSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Genre
         fields = 'id', 'name'
+class ManagerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Manager
+        fields = 'id', 'name', 'username', 'password', 'email'
 
 class BookSerializer(serializers.Serializer):
     id = serializers.IntegerField()

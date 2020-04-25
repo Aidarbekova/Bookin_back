@@ -1,8 +1,9 @@
 from django.shortcuts import render
 
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.views import APIView, status
 
 from api.models import Genre, Book, Order
@@ -36,7 +37,17 @@ class BooksView(APIView):
             return Response(BookSerializer(Book.objects.all(), many=True).data, status=status.HTTP_200_OK)
         except:
             return Response({"exception":"happenпатриаршие пруды ed"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
+    def post(self, request):
+        genre = Genre.objects.get(name=request.data.get('genre'))
+        Book.objects.create(
+            name = request.data.get('name'),
+            genre = genre,
+            author = request.data.get('author'),
+            description = request.data.get('description'),
+            image = request.data.get('image'),
+            price = request.data.get('price')
+        )
+        return Response({"":""}, status=status.HTTP_201_CREATED)
 class BookDetailedView(APIView):
     def get(self, request, id):
         try:
@@ -60,7 +71,9 @@ def order_book(request):
     elif request.method == 'GET':
         return Response(OrderSerializer(Order.objects.all(), many=True).data, status=status.HTTP_200_OK)
 
+
 class OrderInfo(APIView):
+    permission_classes = (IsAuthenticated, )
     def get(self,request, id):
         return Response(OrderSerializer(Order.objects.get(id=id)).data, status=status.HTTP_200_OK)
 
