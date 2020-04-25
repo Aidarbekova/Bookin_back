@@ -14,3 +14,11 @@ class BookSerializer(serializers.Serializer):
     description = serializers.CharField()
     image = serializers.CharField()
     price = serializers.FloatField()
+
+class OrderSerializer(serializers.Serializer):
+    id = serializers.IntegerField(required=False)
+    name = serializers.CharField()
+    status = serializers.CharField()
+    phone = serializers.CharField()
+    address = serializers.CharField()
+    book = BookSerializer()

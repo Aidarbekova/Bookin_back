@@ -10,3 +10,11 @@ class Book(models.Model):
     description = models.TextField()
     image = models.CharField(max_length=5500)
     price = models.FloatField()
+
+
+class Order(models.Model):
+    name = models.CharField(max_length=100)
+    status = models.CharField(max_length=100)
+    phone = models.CharField(max_length=100)
+    address = models.CharField(max_length=100)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE, blank=True, null=True)
